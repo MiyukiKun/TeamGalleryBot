@@ -16,7 +16,7 @@ class ChannelsDB:
         try:
             self.channel_col.insert_one(data)
         except:
-            print("value already exists")
+            pass
 
     def remove(self, data):
         self.channel_col.delete_one(data)
