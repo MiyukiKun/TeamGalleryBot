@@ -18,7 +18,7 @@ auth_url = r["auth_url"]
 
 @bot1.on(events.Raw(UpdateChannelParticipant))
 async def update(event):
-    print(event)
+    # print(event)
     if event.user_id == main_bot_id:
         channel = await bot.get_entity(event.channel_id)
         x = await bot.download_profile_photo(channel)
