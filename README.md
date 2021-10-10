@@ -1,2 +1,2 @@
-# Anime-Gallery-Manager
+# TeamGalllery Manager
 Bot to Manage all contents of channel [@TeamGallery](t.me/teamgallery) on telegram
