@@ -1,0 +1,4 @@
+https://github.com/LonamiWebs/Telethon/archive/refs/heads/master.zip
+pymongo
+dnspython
+telegraph
