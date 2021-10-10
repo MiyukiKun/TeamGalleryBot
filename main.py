@@ -72,7 +72,7 @@ async def _(event):
     chat = await bot1.get_entity(data[1])
     perms = await bot1.get_permissions(chat, me)
     await bot1.edit_admin(chat, user, change_info=perms.change_info, post_messages= perms.post_messages, edit_messages=perms.edit_messages, delete_messages=perms.delete_messages, invite_users=perms.invite_users, add_admins=perms.add_admins, manage_call=perms.manage_call)
-    await bot.send_message("Promoted", reply_to=event)
+    await bot.send_message(main_group_id, "Promoted", reply_to=event)
 
 
 @bot.on(events.NewMessage(pattern="/sdemote", chats=main_group_id))
@@ -81,7 +81,7 @@ async def _(event):
     user = event.sender_id
     chat = await bot1.get_entity(data[1])
     await bot1.edit_admin(chat, user, change_info=False, post_messages=False, edit_messages=False, delete_messages=False, invite_users=False, add_admins=False, manage_call=False)
-    await bot.send_message("Demoted", reply_to=event)
+    await bot.send_message(main_group_id, "Demoted", reply_to=event)
 
 
 @bot.on(events.NewMessage(pattern=("/addpower"), chats=main_group_id))
