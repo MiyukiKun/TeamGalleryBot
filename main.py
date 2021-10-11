@@ -36,8 +36,8 @@ async def handler(event):
 
     for i in channels:
         if (parse_arg(event.text) in parse_arg(i['username'])) or (parse_arg(event.text) in parse_arg(i['name'])):
-            channel = await bot.get_entity(f"t.me/{i['username']}")
-            ch_full = await bot(GetFullChannelRequest(channel=channel))
+            channel = await bot1.get_entity(f"t.me/{i['username']}")
+            ch_full = await bot1(GetFullChannelRequest(channel=channel))
             pic = i['pfp']
             options.append(builder.article(
                 thumb=wb(pic, 0, "image/jpeg", []), 
