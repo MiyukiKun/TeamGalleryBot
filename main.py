@@ -88,8 +88,8 @@ async def _(event):
 async def add_power(event):
     try:
         data = event.raw_text.split(" ")
-        channel = await bot.get_entity(data[1])
-        x = await bot.download_profile_photo(channel)
+        channel = await bot1.get_entity(data[1])
+        x = await bot1.download_profile_photo(channel)
         media_url = upload_file(x)
         pic = f"https://telegra.ph{media_url[0]}"
         ChannelsDB.add({'_id':channel.id , 'username':channel.username, 'name':channel.title, 'pfp':pic})
@@ -102,7 +102,7 @@ async def add_power(event):
 async def add_power(event):
     try:
         data = event.raw_text.split(" ")
-        channel = await bot.get_entity(data[1])
+        channel = await bot1.get_entity(data[1])
         ChannelsDB.remove({'_id':channel.id})
         await bot.send_message(-1001361915166, f"I just removed My power from {channel.title},  @{channel.username}")
     except Exception as e:
