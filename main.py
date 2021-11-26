@@ -51,7 +51,7 @@ async def handler(event):
 
 @bot.on(events.NewMessage(pattern="/start"))
 async def _(event):
-    if event.is_private():
+    if event.is_private:
         await event.reply("Im a bot specially made for managing @Anime_Gallery, and provide easy access to all channels we have access to", file = "Hepler\AGM.png")
 
 
