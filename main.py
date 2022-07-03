@@ -6,10 +6,13 @@ import time
 from telethon.tl.types import InputWebDocument as wb
 import os
 from telegraph import Telegraph, upload_file
-from Database.mongo import ChannelsDB
+from Database.mongo import ChannelsDB, AdsDB
 from Helper.helper import parse_arg, parse_about
+from datetime import datetime
+import asyncio
 
 ChannelsDB = ChannelsDB()
+AdsDB = AdsDB()
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name="Anime_Gallery_Manager")
@@ -32,7 +35,7 @@ async def update(event):
 async def handler(event):
     builder = event.builder
     channels = ChannelsDB.full()
-    options = []              
+    options = []          
 
     for i in channels:
         if (parse_arg(event.text) in parse_arg(i['username'])) or (parse_arg(event.text) in parse_arg(i['name'])):
@@ -40,7 +43,7 @@ async def handler(event):
             ch_full = await bot1(GetFullChannelRequest(channel=channel))
             pic = i['pfp']
             options.append(builder.article(
-                thumb=wb(pic, 0, "image/jpeg", []), 
+                thumb=wb(pic, 0, "image/jpeg", []),
                 title = channel.title,
                 description = f"@{i['username']}",
                 text = f"{parse_about(ch_full.full_chat.about)}\n\n Link [-]({pic}) @{i['username']}"))
@@ -97,7 +100,8 @@ async def add_power(event):
         os.remove(x)
     except Exception as e:
         await bot.send_message(main_group_id, str(e))
-    
+
+
 @bot.on(events.NewMessage(pattern=("/rmpower"), chats=main_group_id))
 async def add_power(event):
     try:
@@ -172,6 +176,35 @@ async def help(event):
     `@Name of bot, search anime (inline search)`
     """)
 
+
+@bot1.on(events.NewMessage())
+async def ad(event):
+    if event.via_bot_id == 5022774751:
+        AdsDB.add({'_id':f"{event.chat_id}:{event.id}", 'time': datetime.now()})
+
+
+async def del_ad():
+    ads = AdsDB.full()
+    for i in ads:
+        if (datetime.now() - i['time']).days > 1:
+            a = i['_id'].split(":")
+            await bot1.delete_messages(a[0], a[1])
+            AdsDB.remove({'_id':i['_id']})
+    await asyncio.sleep(300)
+
+
+@bot.on(events.NewMessage(pattern="/active_ads"))
+async def _(event):
+    ads = AdsDB.full()
+    msg = ''
+    for i in ads:
+        a = i['_id'].split(":")
+        msg += f't.me/{a[0]}/{a[1]}'
+
+
+loop = asyncio.get_event_loop()
+
+loop.run_until_complete(del_ad())
 
 bot.start()
 
