@@ -199,7 +199,7 @@ async def _(event):
     msg = ''
     for i in ads:
         a = i['_id'].split(":")
-        msg += f't.me/{a[0]}/{a[1]}'
+        msg += f't.me/{a[0]}/{a[1]}\n'
 
 
 loop = asyncio.get_event_loop()
