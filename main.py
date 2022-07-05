@@ -184,13 +184,14 @@ async def ad(event):
 
 
 async def del_ad():
-    ads = AdsDB.full()
-    for i in ads:
-        if (datetime.now() - i['time']).days > 1:
-            a = i['_id'].split(":")
-            await bot1.delete_messages(a[0], a[1])
-            AdsDB.remove({'_id':i['_id']})
-    await asyncio.sleep(300)
+    while True:
+        ads = AdsDB.full()
+        for i in ads:
+            if (datetime.now() - i['time']).days > 1:
+                a = i['_id'].split(":")
+                await bot1.delete_messages(a[0], a[1])
+                AdsDB.remove({'_id':i['_id']})
+        await asyncio.sleep(300)
 
 
 @bot.on(events.NewMessage(pattern="/active_ads"))
