@@ -199,7 +199,8 @@ async def _(event):
     msg = ''
     for i in ads:
         a = i['_id'].split(":")
-        msg += f't.me/{a[0]}/{a[1]}\n'
+        b = a[0].replace("-100", "")
+        msg += f't.me/c/{b}/{a[1]}\n'
     await event.reply(msg)
 
 
