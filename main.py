@@ -189,7 +189,10 @@ async def del_ad():
         for i in ads:
             if (datetime.now() - i['time']).days > 1:
                 a = i['_id'].split(":")
-                await bot1.delete_messages(int(a[0]), int(a[1]))
+                try:
+                    await bot1.delete_messages(int(a[0]), int(a[1]))
+                except:
+                    pass
                 AdsDB.remove({'_id':i['_id']})
         await asyncio.sleep(300)
 
