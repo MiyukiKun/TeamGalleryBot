@@ -55,7 +55,7 @@ async def handler(event):
     await event.answer(options)
     
 
-@bot.on(events.NewMessage(pattern="/start"))
+@bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def _(event):
     if event.is_private:
         await event.reply("Im a bot specially made for managing @Anime_Gallery, and provide easy access to all channels we have access to", file = "Hepler\AGM.png")
@@ -219,7 +219,7 @@ async def del_ad():
 @bot.on(events.NewMessage(pattern="/active_ads"))
 async def _(event):
     ads = AdsDB.full()
-    msg = ''
+    msg = 'Active ADS:\n'
     for i in ads:
         a = i['_id'].split(":")
         b = a[0].replace("-100", "")
