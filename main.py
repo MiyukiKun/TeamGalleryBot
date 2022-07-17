@@ -10,6 +10,8 @@ from Database.mongo import ChannelsDB, AdsDB, UsersDB
 from Helper.helper import parse_arg, parse_about
 from datetime import datetime
 import asyncio
+from telethon.tl.types import PeerUser, PeerChat, PeerChannel
+
 
 ChannelsDB = ChannelsDB()
 AdsDB = AdsDB()
@@ -222,7 +224,7 @@ async def _(event):
         a = i['_id'].split(":")
         b = a[0].replace("-100", "")
         try:
-            channel = await bot.get_entity(int(f'PeerChannel({b})'))
+            channel = await bot.get_entity(PeerChannel(int(b)))
             msg += f't.me/c/{channel.username}/{a[1]}\n'
         except Exception as e:
             await event.reply(f"Error:\n{str(e)}")
