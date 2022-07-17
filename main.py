@@ -224,7 +224,7 @@ async def _(event):
         a = i['_id'].split(":")
         b = a[0].replace("-100", "")
         try:
-            channel = await bot.get_entity(PeerChannel(int(b)))
+            channel = await bot1.get_entity(PeerChannel(int(b)))
             msg += f't.me/c/{channel.username}/{a[1]}\n'
         except Exception as e:
             await event.reply(f"Error:\n{str(e)}")
