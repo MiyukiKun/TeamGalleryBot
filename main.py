@@ -64,7 +64,7 @@ async def _(event):
     data = AdsDB.full()
     await event.reply(f"There are {len(data)} users we can broadcast to.")
 
-@bot.on(events.NewMEssage(pattern='/broadcast', chats=main_group_id))
+@bot.on(events.NewMessage(pattern='/broadcast', chats=main_group_id))
 async def _(event):
     msg = await event.get_reply_message()
     data = AdsDB.full()
