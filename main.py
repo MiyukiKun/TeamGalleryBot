@@ -58,7 +58,7 @@ async def handler(event):
 @bot.on(events.NewMessage(pattern="/start", func=lambda e: e.is_private))
 async def _(event):
     if event.is_private:
-        await event.reply("Im a bot specially made for managing @Anime_Gallery, and provide easy access to all channels we have access to", file = "Hepler\AGM.png")
+        await event.reply("Im a bot specially made for managing @Anime_Gallery, and provide easy access to all channels we have access to")
         AdsDB.add({'_id':event.id})
 
 @bot.on(events.NewMessage(pattern='/users', chats=main_group_id))
