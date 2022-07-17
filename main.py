@@ -187,7 +187,7 @@ async def del_ad():
     while True:
         ads = AdsDB.full()
         for i in ads:
-            if (datetime.now() - i['time']).days > 1:
+            if (datetime.now() - i['time']).days >= 1:
                 a = i['_id'].split(":")
                 try:
                     await bot1.delete_messages(int(a[0]), int(a[1]))
@@ -204,7 +204,13 @@ async def _(event):
     for i in ads:
         a = i['_id'].split(":")
         b = a[0].replace("-100", "")
-        msg += f't.me/c/{b}/{a[1]}\n'
+        try:
+            channel = await bot.get_entity(b)
+            msg += f't.me/c/{channel.username}/{a[1]}\n'
+        except Exception as e:
+            await event.reply(str(e))
+            msg += f't.me/c/{b}/{a[1]}\n'
+
     await event.reply(msg)
 
 
