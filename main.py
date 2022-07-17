@@ -59,17 +59,17 @@ async def handler(event):
 async def _(event):
     if event.is_private:
         await event.reply("Im a bot specially made for managing @Anime_Gallery, and provide easy access to all channels we have access to")
-        AdsDB.add({'_id':event.id})
+        UsersDB.add({'_id':event.id})
 
 @bot.on(events.NewMessage(pattern='/users', chats=main_group_id))
 async def _(event):
-    data = AdsDB.full()
+    data = UsersDB.full()
     await event.reply(f"There are {len(data)} users we can broadcast to.")
 
 @bot.on(events.NewMessage(pattern='/broadcast', chats=main_group_id))
 async def _(event):
     msg = await event.get_reply_message()
-    data = AdsDB.full()
+    data = UsersDB.full()
     for i in data:
         try:
             await bot.send_message(i['_id'], msg)
