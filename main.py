@@ -222,7 +222,7 @@ async def _(event):
         a = i['_id'].split(":")
         b = a[0].replace("-100", "")
         try:
-            channel = await bot.get_entity(int(b))
+            channel = await bot.get_entity(int(a[0]))
             msg += f't.me/c/{channel.username}/{a[1]}\n'
         except Exception as e:
             await event.reply(str(e))
