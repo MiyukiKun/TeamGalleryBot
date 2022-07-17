@@ -225,12 +225,12 @@ async def _(event):
         b = a[0].replace("-100", "")
         try:
             channel = await bot1.get_entity(PeerChannel(int(b)))
-            msg += f't.me/c/{channel.username}/{a[1]}\n'
+            msg += f't.me/{channel.username}/{a[1]}\n'
         except Exception as e:
             await event.reply(f"Error:\n{str(e)}")
             msg += f't.me/c/{b}/{a[1]}\n'
 
-    await event.reply(msg)
+    await event.reply(msg, link_preview=False)
 
 
 loop = asyncio.get_event_loop()
